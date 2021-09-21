@@ -1,12 +1,16 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 from . import views
 
+router = DefaultRouter()
+router.register(r'categories', views.CategoryViewSet)
+router.register(r'suppliers', views.SupplierViewSet)
+router.register(r'products', views.ProductViewSet)
+router.register(r'stocks', views.StockViewSet)
+router.register(r'purchase_orders', views.PurchaseOrderViewSet)
+router.register(r'sale_orders', views.SaleOrderViewSet)
 urlpatterns = [
-    path('', views.home, name="home"),
-    path('product-list/', views.product_list, name="product_list"),
-    path('product-detail/<str:pk>', views.product_detail, name="product_detail"),
-    path('product-create/', views.product_create, name="product_create"),
-    path('product-update/<str:pk>', views.product_update, name="product_update"),
-    path('product-delete/<str:pk>', views.product_delete, name="product_delete"),
+    path('', include(router.urls)),
+
 
 ]
