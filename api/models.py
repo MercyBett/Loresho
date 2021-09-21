@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 
 class Category(models.Model):
     name = models.CharField(max_length=200)
+    product = models.ManyToManyField('Product')
 
     def __str__(self):
         return self.name
@@ -20,7 +21,7 @@ class Supplier(models.Model):
 
 
 class Product(models.Model):
-    category = models.ForeignKey('Category', on_delete=models.CASCADE)
+    # category = models.ForeignKey('Category', on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     description = models.CharField(max_length=200)
     units = models.PositiveIntegerField(default=0)
@@ -45,7 +46,7 @@ class PurchaseOrder(models.Model):
 
 
 class SaleOrder(models.Model):
-    product = models.ForeignKey('Product', on_delete=models.CASCADE)
+    product = models.ManyToManyField('Product')
     staff = models.ForeignKey(User, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     # unit_price = models.DecimalField(max_digits=8,decimal_places=2)
