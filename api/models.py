@@ -52,3 +52,32 @@ class SaleOrder(models.Model):
     # unit_price = models.DecimalField(max_digits=8,decimal_places=2)
     discount = models.PositiveIntegerField()
     date = models.DateField(auto_now_add=True)
+
+
+class Customer(models.Model):
+    name = models.CharField(max_length=255)
+    phone_number = models.CharField(max_length=20)
+
+    def __str__(self):
+        self.name
+
+
+class Order(models.Model):
+    order_number = models.PositiveIntegerField(default=1)
+    date = models.DateField(auto_now_add=True)
+    sale_amount = models.PositiveIntegerField(default=1)
+    vat = models.IntegerField(default=1)
+    net_vat = models.DecimalField(max_digits=8, decimal_places=2)
+    discount = models.DecimalField(max_digits=8, decimal_places=2)
+    amount_due = models.DecimalField(max_digits=8, decimal_places=2)
+    change = models.DecimalField(max_digits=8, decimal_places=2)
+    cashier = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    customer = models.ForeignKey('Customer', on_delete=models.CASCADE)
+
+
+class OrderDetails(models.Model):
+    order = models.ForeignKey('Order', null=True, on_delete=models.CASCADE)
+    product = models.ForeignKey('Product', on_delete=models.CASCADE)
+    unit_price = models.DecimalField(max_digits=8, decimal_places=2)
+    quantity = models.PositiveIntegerField(default=1)
+    total_price = models.PositiveIntegerField(default=1)

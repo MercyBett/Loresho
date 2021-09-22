@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Category, Supplier, Product, Stock, PurchaseOrder, SaleOrder
+from .models import Category, Supplier, Product, Stock, PurchaseOrder, SaleOrder, Customer, Order, OrderDetails
 from django.contrib.auth.models import User
 
 
@@ -44,3 +44,21 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = ('url', 'username')
+
+
+class CustomerSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Customer
+        fields = '__all__'
+
+
+class OrderSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Order
+        fields = '__all__'
+
+
+class OrderDetailsSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = OrderDetails
+        fields = '__all__'

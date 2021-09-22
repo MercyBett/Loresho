@@ -3,8 +3,8 @@ from django.http import JsonResponse
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import CategorySerializer, SupplierSerializer, ProductSerializer, StockSerializer, PurchaseOrderSerializer, SaleOrderSerializer, UserSerializer
-from .models import Category, Supplier, Product, Stock, PurchaseOrder, SaleOrder
+from .serializers import CategorySerializer, SupplierSerializer, ProductSerializer, StockSerializer, PurchaseOrderSerializer, SaleOrderSerializer, UserSerializer, OrderDetailsSerializer, OrderSerializer, CustomerSerializer
+from .models import Category, OrderDetails, Supplier, Product, Stock, PurchaseOrder, SaleOrder, Order, OrderDetails, Customer
 from django.contrib.auth.models import User
 # Create your views here.
 
@@ -48,3 +48,21 @@ class SaleOrderViewSet(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+
+class OrderViewSet(viewsets.ModelViewSet):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class OrderDetailsViewSet(viewsets.ModelViewSet):
+    queryset = OrderDetails.objects.all()
+    serializer_class = OrderDetailsSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class CustomerViewSet(viewsets.ModelViewSet):
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
