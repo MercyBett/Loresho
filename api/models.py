@@ -20,13 +20,13 @@ class Supplier(models.Model):
 
 
 class Product(models.Model):
-    category = models.ManyToManyField(
-        'Category')
+    category = models.ForeignKey(
+        'Category', null=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=200)
     description = models.CharField(max_length=200)
-    units = models.PositiveIntegerField(default=0)
-    unit_price = models.PositiveIntegerField()
-    quantity = models.PositiveIntegerField(default=0)
+    purchase_price = models.PositiveIntegerField(default=20)
+    selling_price = models.PositiveIntegerField(default=20)
+    quantity = models.PositiveIntegerField(default=1)
     supplier = models.ForeignKey('Supplier', on_delete=models.CASCADE)
 
     def __str__(self):
